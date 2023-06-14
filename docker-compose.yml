@@ -1,0 +1,35 @@
+version: "3.0"
+
+services:
+  base:
+    pull_policy: never
+    image: fram-hrm:latest
+    build:
+      context: .
+      args:
+        - APP_ENV=development
+
+  nginx:
+    pull_policy: never
+    image: fram-hrm:latest
+    command: nginx
+    ports:
+      - "${APP_PORT:-8008}:80"
+    volumes:
+      - php-sock:/run
+      - ./:/usr/src/app
+    depends_on:
+      - base
+
+  php-fpm:
+    pull_policy: never
+    image: fram-hrm:latest
+    command: php-fpm
+    volumes:
+      - php-sock:/run
+      - ./:/usr/src/app
+    depends_on:
+      - base
+
+volumes:
+  php-sock:
