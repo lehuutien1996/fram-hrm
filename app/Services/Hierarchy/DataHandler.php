@@ -16,9 +16,13 @@ class DataHandler implements DataHandlerInterface
         return array_unique($items);
     }
 
-    public function flattenWithChildrenAdded(array $payload): array
+    public function flattenWithChildrenAdded(array $items, array $payload): array
     {
-        // TODO: Implement flattenWithChildrenAdded() method.
+        return array_map(fn($item) => [
+            'name' => $item,
+            'parent' => $payload[$item] ?? null,
+            'children' => [],
+        ], $items);
     }
 
     public function nesting(array $flatData): array
