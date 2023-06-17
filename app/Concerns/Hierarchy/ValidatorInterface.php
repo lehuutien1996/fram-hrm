@@ -2,7 +2,12 @@
 
 namespace App\Concerns\Hierarchy;
 
+use App\Exceptions\ApplicationException;
+
 interface ValidatorInterface
 {
-    public function validate(array $payload): bool;
+    /**
+     * @throws ApplicationException
+     */
+    public function validate(array $flattenData): bool;
 }

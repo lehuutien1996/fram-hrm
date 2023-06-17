@@ -6,5 +6,5 @@ interface DataHandlerInterface
 {
     public function flattenThenUnique(array $payload): array;
     public function flattenWithChildrenAdded(array $items, array $payload): array;
-    public function nesting(array $flatData): array;
+    public function nesting(array $flattenData): array;
 }

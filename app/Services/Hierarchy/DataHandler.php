@@ -25,7 +25,7 @@ class DataHandler implements DataHandlerInterface
         ], $items);
     }
 
-    public function nesting(array $flatData): array
+    public function nesting(array $flattenData): array
     {
         // TODO: Implement nesting() method.
     }

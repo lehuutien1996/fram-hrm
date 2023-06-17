@@ -8,15 +8,19 @@ use App\Repositories\Contracts\EmployeeRepositoryInterface;
 
 class SaveHierarchy
 {
-    protected ValidatorInterface $validator;
-
-    protected DataHandlerInterface $dataHandler;
-
-    protected EmployeeRepositoryInterface $repository;
+    public function __construct(
+        private readonly ValidatorInterface $validator,
+        private readonly DataHandlerInterface $dataHandler,
+        private readonly EmployeeRepositoryInterface $repository,
+    ) {}
 
     public function handle($payload)
     {
-        $this->validator->validate($payload);
+        $names = $this->dataHandler->flattenThenUnique($payload);
+        $flattenData = $this->dataHandler->flattenWithChildrenAdded($names, $payload);
+
+        // Validate flatten data
+        $this->validator->validate($flattenData);
 
 
     }
